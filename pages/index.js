@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import Modal from "../components/Modal";
 
@@ -18,6 +18,20 @@ const App = () => {
     setModal(false);
     window.history.go(-1);
   };
+
+  const handleChange = e => {
+    if (e.target.location.pathname === "/test") {
+      setModal(true);
+    }
+    if (e.target.location.pathname === "/") {
+      setModal(false);
+    }
+  };
+
+  useEffect(() => {
+    window.onpopstate = handleChange;
+    () => window.removeEventListener("popstate", handleChange);
+  });
 
   return (
     <div>
